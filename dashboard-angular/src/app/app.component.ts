@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'dashboard-angular';
+  themeChecked: boolean;
+
+  onThemeChange() {    
+    alert(`You submitted the form. ${this.themeChecked}`);
+  }
 }
