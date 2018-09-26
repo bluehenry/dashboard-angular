@@ -1,11 +1,11 @@
-<mat-toolbar color="primary">
-  <span>Toolbar</span>
-  <span class="example-spacer"></span>
-  <!-- <mat-icon class="example-icon">favorite</mat-icon>
-  <mat-icon class="example-icon">delete</mat-icon> -->
-  <mat-slide-toggle 
-    class="example-margin" 
-    (change)="onThemeChange($event)" 
-    [(ngModel)]="themeChecked"
-    >Change theme</mat-slide-toggle>  
-</mat-toolbar>
+<mat-sidenav-container [class.dark-theme]="isDarkTheme">  
+  <mat-toolbar color="primary">
+    <span>Toolbar</span>
+    <span class="example-spacer"></span>
+    <!-- <mat-icon class="example-icon">favorite</mat-icon>
+    <mat-icon class="example-icon">delete</mat-icon> -->
+    <mat-slide-toggle 
+      class="example-margin" 
+      (change)="toggleTheme()">Change theme</mat-slide-toggle>  
+  </mat-toolbar>
+</mat-sidenav-container>
