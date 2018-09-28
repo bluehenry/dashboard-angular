@@ -1,4 +1,5 @@
-<mat-sidenav-container [class.dark-theme]="isDarkTheme">  
+<body [class.dark-theme]="isDarkTheme">
+<mat-sidenav-container>  
   <mat-toolbar color="primary">
     <span>Toolbar</span>
     <span class="example-spacer"></span>
@@ -7,5 +8,8 @@
     <mat-slide-toggle 
       class="example-margin" 
       (change)="toggleTheme()">Change theme</mat-slide-toggle>  
-  </mat-toolbar>
+  </mat-toolbar>  
 </mat-sidenav-container>
+
+<app-product-table></app-product-table>
+</body>

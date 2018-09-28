@@ -8,7 +8,7 @@
 @include mat-core();
 
 $indigo-primary: mat-palette($mat-indigo);
-$indigo-accent:  mat-palette($mat-pink);
+$indigo-accent:  mat-palette($mat-pink, A200, A100, A400);
 $indigo-warn:    mat-palette($mat-red);
 
 $indigo-theme:   mat-light-theme($indigo-primary, $indigo-accent, $indigo-warn);
@@ -16,11 +16,11 @@ $indigo-theme:   mat-light-theme($indigo-primary, $indigo-accent, $indigo-warn);
 @include angular-material-theme($indigo-theme);
 
 .dark-theme {
-  $pink-primary:  mat-palette($mat-pink, 700);
-  $pink-accent:   mat-palette($mat-green);
-  $pink-warn:     mat-palette($mat-red);
+  $dark-primary:  mat-palette($mat-blue-grey);
+  $dark-accent:   mat-palette($mat-amber, A200, A100, A400);
+  $dark-warn:     mat-palette($mat-deep-orange);
 
-  $pink-theme:    mat-dark-theme($pink-primary, $pink-accent, $pink-warn);
+  $unicorn-dark-theme:    mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
-  @include angular-material-theme($pink-theme);
+  @include angular-material-theme($unicorn-dark-theme);
 }
