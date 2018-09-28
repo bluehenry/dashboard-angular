@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { SelectionModel  } from '@angular/cdk/collections';
+
 import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -13,17 +16,21 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./product-table.component.scss']
 })
 export class ProductTableComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  @ViewChild('productAddForm') productAddForm;
-
-  displayedColumns: string[] = ['id', 'name', 'category', 'description', 'price'];
-  // dataSource = ELEMENT_DATA;
-
+  displayedColumns: string[] = ['id', 'name', 'category', 'description', 'price'];  
+  allProducts: IProduct[];
+  dataSource = new MatTableDataSource<IProduct>(this.allProducts);   
+  
+  allowMultiSelect = true;
+  initialSelection = [];
+  selection = new SelectionModel<IProduct>(this.allowMultiSelect, this.initialSelection);
+  
   // Add Product Form is a Reactive Form
-  // Create with FormBuilder
-  public addProductForm: FormGroup;
-
-  public allProducts: IProduct[];
+  // Create with FormBuilder  
+  public addProductForm: FormGroup; 
+  @ViewChild('productAddForm') productAddForm;
   public message: string;
   public errorMessage: string;
   public result = true;
@@ -36,6 +43,9 @@ export class ProductTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;    
+
     this.newProduct = this.initializeProduct();
     // this.createAddForm();
     this.refresh();
@@ -44,7 +54,7 @@ export class ProductTableComponent implements OnInit {
   refresh() {
     this.productService.getAllProducts()
       .subscribe(
-        (data: IProduct[]) => { this.allProducts = data; },
+        (data: IProduct[]) => { this.dataSource.data = data; },
         (err: any) => console.log(err)
       );
   }
@@ -60,6 +70,24 @@ export class ProductTableComponent implements OnInit {
     };
   }
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected == numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  
   // createAddForm() {
   //   this.addProductForm = this.formBuilder.group({
   //     name: ['', Validators.required],
