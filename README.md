@@ -8,10 +8,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Deploy to GitHub Pages
 Check this tool [angular-cli-ghpages](https://github.com/angular-schule/angular-cli-ghpages).
-In my case, just run the following commend after installing angular-cli-ghpages.
+In my case, just run the following commend.
 ```
-ng build --prod --base-href "https://bluehenry.github.io/Angular.Demo/"
-angular-cli-ghpages
+npm i angular-cli-ghpages --save-dev
+ng build --prod --base-href "https://bluehenry.github.io/dashboard-angular/"
+npx ngh --dir=dist/dashboard-angular
 ```
 
 ## Development server
